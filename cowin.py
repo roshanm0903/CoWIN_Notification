@@ -29,7 +29,7 @@ def get_data():
                     if j["vaccine"] == "COVAXIN":    
                         # data[i['name']] [j["date"]] = j["available_capacity"]
                         # print( j["date"] , j["available_capacity"] )
-                        if j["available_capacity"] > 0:
+                        if j["available_capacity_dose2"] > 0:
                             # print("Slots Avaialble")
                             print(j["date"] +" "+ i["name"]  +" "+ str(j["available_capacity"]) )
                             toast.show_toast("Notification","Vacant",duration=4)
