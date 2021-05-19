@@ -5,7 +5,9 @@ import time
 import datetime
 from win10toast import ToastNotifier
 import os
+import cowin_v2
 
+pause = False
 
 def get_data():
     current_time = datetime.datetime.now() 
@@ -25,7 +27,7 @@ def get_data():
     for i in resp['centers']:
         if i['fee_type'] == "Paid":
             for j in i['sessions']:
-                if j["min_age_limit"] == 45:
+                if j["min_age_limit"] == 18:
                     if j["vaccine"] == "COVAXIN":    
                         # data[i['name']] [j["date"]] = j["available_capacity"]
                         # print( j["date"] , j["available_capacity"] )
@@ -33,15 +35,16 @@ def get_data():
                             # print("Slots Avaialble")
                             print(j["date"] +" "+ i["name"]  +" "+ str(j["available_capacity"]) )
                             toast.show_toast("Notification","Vacant",duration=4)
-                            os.system('python cowin_v2.py')
+                            # os.system('python cowin_v2.py')
+                            cowin_v2.main(i["pincode"])
                             input("proceed?")
-
+                            pause = True
         
     return False
 
 toast = ToastNotifier()
 
-while True:
+while not pause:
     get_data()
     time.sleep(5)
 
